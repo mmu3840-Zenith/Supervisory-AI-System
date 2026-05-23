@@ -27,9 +27,7 @@ class Robot:
 
     def draw(self, win):
         pygame.draw.circle(win, self.color, (int(self.x), int(self.y)), 20)
-
         pygame.draw.rect(win, (200,200,200),
             (self.x-20, self.y-30, 40, 5))
-
         pygame.draw.rect(win, (0,200,0),
             (self.x-20, self.y-30, 40*(self.energy/100), 5))

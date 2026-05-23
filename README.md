@@ -1,19 +1,26 @@
-# PMARS: Supervisory Multi-Robot Intelligence System
+# Supervisory AI System
 
-A hybrid robotic system combining:
-- Multi-agent robotics
-- Central supervisory AI
-- Failure prediction modeling
-- Adaptive task reassignment
+A multi-agent robotic coordination framework with centralized supervisory intelligence.
 
-## Core Idea
-Robots operate autonomously but are dynamically controlled by a supervisory intelligence layer that minimizes system-wide failure risk.
+## Core Concept
+A decentralized set of robotic agents governed by a supervisory AI that:
+- monitors system health
+- predicts failure risk
+- dynamically reassigns tasks
 
-## Key Features
+## Key Capabilities
 - Energy-based failure prediction
-- Centralized supervision with decentralized execution
-- Dynamic task reassignment
-- Real-time risk monitoring
+- Real-time supervisory control
+- Adaptive task redistribution
+- Multi-agent coordination
 
-## Research Contribution
-Demonstrates hybrid control architecture for scalable robotic coordination systems.
+## Research Value
+Demonstrates hybrid control architecture combining:
+- autonomy (robot agents)
+- central intelligence (supervisor)
+- predictive analytics (failure model)
+
+## Output
+- Real-time simulation
+- Risk metrics
+- System stability analysis

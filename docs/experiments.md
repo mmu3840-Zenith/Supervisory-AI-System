@@ -1,11 +1,12 @@
 Experiments
 
-Evaluated:
-- Stability under energy decay
-- System performance under random task assignment
-- Failure prediction accuracy
+Scenarios:
+- Normal operation
+- Stress conditions
+- High failure environments
+- Scalability tests
 
 Metrics:
-- Energy levels
-- Failure rate
-- Task completion efficiency
+- Energy stability
+- Task completion rate
+- Failure probability

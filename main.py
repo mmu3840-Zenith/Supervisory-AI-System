@@ -45,7 +45,7 @@ while running:
     for r in robots:
         r.draw(WIN)
 
-    pygame.display.set_caption(f"Risk: {risk:.2f}")
+    pygame.display.set_caption(f"System Risk: {risk:.2f}")
     pygame.display.update()
 
 pygame.quit()

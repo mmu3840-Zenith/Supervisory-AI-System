@@ -1,10 +1,10 @@
 Methodology
 
-Each robot:
-- Moves toward assigned target
-- Loses energy over time
-- Becomes high-risk when energy is low
+Robots:
+- Move toward assigned targets
+- Consume energy over time
+- Risk increases as energy decreases
 
-Supervisory AI:
-- Monitors all robots
+Supervisor:
+- Monitors all agents
 - Reassigns low-energy robots to safe zones
