@@ -1,0 +1,12 @@
+﻿pycache/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+
+results/raw/.json
+results/processed/.json
+
+*.tmp
+*.log

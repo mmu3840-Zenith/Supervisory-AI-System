@@ -1,9 +1,43 @@
-System Design
+﻿# System Architecture
 
-Architecture consists of:
-1. Robot Agents
-2. Supervisory AI Controller
-3. Failure Prediction Model
+```text
+                  +----------------------+
+                  |   Task Environment   |
+                  +----------+-----------+
+                             |
+                             v
+                  +----------------------+
+                  |   Robot Agent Layer  |
+                  +----------+-----------+
+                             |
+                             v
+                  +----------------------+
+                  | Failure Risk Model   |
+                  +----------+-----------+
+                             |
+                             v
+                  +----------------------+
+                  | Supervisory Controller|
+                  +----------+-----------+
+                             |
+                   +---------+---------+
+                   |                   |
+                   v                   v
+            Continue Task       Redistribute
+                                 Workload
+                   |                   |
+                   +---------+---------+
+                             |
+                             v
+                  +----------------------+
+                  |  Research Metrics    |
+                  +----------------------+
 
-Flow:
-Perception ? Movement ? Energy Update ? Risk Evaluation ? Task Reassignment
+The architecture separates:
+
+agent autonomy
+environment state
+predictive risk estimation
+centralized supervisory control
+task allocation
+quantitative evaluation

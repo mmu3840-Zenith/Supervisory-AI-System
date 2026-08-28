@@ -1,12 +1,17 @@
-Experiments
+﻿# Experimental Design
 
-Scenarios:
-- Normal operation
-- Stress conditions
-- High failure environments
-- Scalability tests
+Each experimental condition is executed using deterministic
+random seeds.
 
-Metrics:
-- Energy stability
-- Task completion rate
-- Failure probability
+For each seed:
+
+1. Generate the same computational environment.
+2. Initialize the same number of simulated agents.
+3. Generate the same task distribution.
+4. Run the baseline controller.
+5. Run the supervisory controller.
+6. Record the resulting metrics.
+7. Aggregate repeated trials.
+
+The comparison is designed to isolate the contribution of
+supervisory failure-risk monitoring and workload redistribution.
