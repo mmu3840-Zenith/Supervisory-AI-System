@@ -1,187 +1,412 @@
-﻿
-Supervisory AI System
-Centralized Supervisory Control for Multi-Agent Robotic Systems
+# Supervisory AI System
 
-A computational research framework investigating whether a
-central supervisory controller can improve multi-agent task
-allocation by monitoring simulated failure risk and dynamically
-redistributing workload.
+## A Computational Framework for Multi-Agent Monitoring, Decision Oversight, and Fault Recovery
 
-Important: This repository is a computational simulation.
-It does not demonstrate physical robotic deployment.
+The **Supervisory AI System** is a computational research framework for coordinating and monitoring autonomous agents operating within a shared environment.
 
-Research Hypothesis
+Rather than allowing individual agents to operate independently without oversight, the system introduces a supervisory layer responsible for **state monitoring, anomaly detection, task evaluation, coordination, and recovery from failures**.
 
-A centralized supervisory layer that continuously estimates
-agent failure risk and redistributes workload should reduce
-system-level degradation compared with a purely greedy
-task-allocation strategy.
+The project investigates a central question:
 
-Architecture
-Environment
-     |
-     v
-Robot Agents
-     |
-     v
-Failure-Risk Estimator
-     |
-     v
-Supervisory Controller
-     |
-     +--------> Continue
-     |
-     +--------> Redistribute
-                    |
-                    v
-              Task Allocation
-                    |
-                    v
-              System Metrics
-Core Components
-Agent Layer
+> **Can a supervisory intelligence layer improve the reliability and coordination of multi-agent systems by continuously evaluating agent behavior and intervening when failures occur?**
 
-Each simulated robot maintains:
+This repository contains the implementation, experimental infrastructure, evaluation tools, and reproducibility components used to investigate that question.
 
-position
-energy
-workload
-active/inactive state
-completed-task count
-Failure Prediction
+---
 
-A transparent energy/workload heuristic estimates failure
-risk on a normalized [0, 1] scale.
+## Research Scope
 
-Supervisory Controller
+This project is a **computational simulation and software architecture study**.
 
-The supervisor:
+It does **not** demonstrate deployment of autonomous robots, physical supervisory systems, or safety-critical AI in the real world.
 
-observes agent state
-estimates failure risk
-identifies elevated-risk agents
-triggers workload redistribution
-Allocation
+The objective is to evaluate supervisory mechanisms under controlled computational conditions and provide a reproducible foundation for further research.
 
-Two allocation strategies are available:
+---
 
-nearest-agent greedy allocation
-workload-aware allocation
+# System Architecture
 
-This allows the supervisory contribution to be evaluated
-against a computational baseline.
+The system is organized around several interacting layers:
 
-Experimental Metrics
+```text
+                    ┌─────────────────────────┐
+                    │   Supervisory AI Layer  │
+                    │                         │
+                    │ Monitoring              │
+                    │ Decision Evaluation     │
+                    │ Anomaly Detection       │
+                    │ Recovery / Intervention │
+                    └────────────┬────────────┘
+                                 │
+                    ┌────────────▼────────────┐
+                    │   Coordination Layer    │
+                    │                         │
+                    │ Task Allocation         │
+                    │ Agent Coordination      │
+                    │ State Management        │
+                    └────────────┬────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+        ┌─────▼─────┐      ┌─────▼─────┐      ┌─────▼─────┐
+        │  Agent 1  │      │  Agent 2  │      │  Agent N  │
+        │           │      │           │      │           │
+        │ Actions   │      │ Actions   │      │ Actions   │
+        │ State     │      │ State     │      │ State     │
+        └───────────┘      └───────────┘      └───────────┘
+              │                  │                  │
+              └──────────────────┼──────────────────┘
+                                 │
+                    ┌────────────▼────────────┐
+                    │ Computational           │
+                    │ Environment             │
+                    └─────────────────────────┘
+```
 
-The experiment records:
+The supervisory layer observes system-level behavior rather than relying exclusively on individual agent decisions.
 
-MetricDescription
-Completion RateFraction of tasks completed
-Mean Failure RiskAverage predicted agent risk
-Failed AgentsAgents that become inactive
-Task ReassignmentsSupervisory workload redistribution events
-Total EnergyRemaining swarm energy
-MakespanNumber of simulation steps
-Reproducibility
+---
 
-Experiments use fixed seeds:
+# Core Components
 
-42
-7
-21
-99
-123
+### 1. Agent Layer
 
-This permits repeated evaluation under identical computational
-conditions.
+Represents the autonomous agents participating in the simulation.
 
-Running
+Each agent maintains state and executes actions within the computational environment.
 
-Install dependencies:
+### 2. Environment Layer
 
-pip install -r requirements.txt
+Provides the shared computational environment in which agents operate.
 
-Run tests:
+The environment records relevant state variables and system events required for evaluation.
 
-python -m pytest -q
+### 3. Supervisory Layer
 
-Run experiments:
+The supervisory controller continuously evaluates system behavior.
 
-python experiments/run_experiments.py
+Its responsibilities include:
 
-Aggregate results:
+* monitoring agent states
+* evaluating system behavior
+* identifying abnormal conditions
+* detecting potential failures
+* determining when intervention is required
+* coordinating corrective actions
+* maintaining system-level awareness
 
-python -m src.experiments.aggregate
+### 4. Coordination Layer
 
-Raw results are written to:
+Provides mechanisms for managing interactions between agents and the supervisory controller.
 
-results/raw/
+This layer allows the system to reason about the collective state of the agent population rather than treating each agent as an isolated process.
 
-Aggregated results are written to:
+### 5. Evaluation Layer
 
-results/processed/
-Research Integrity
+Records experimental measurements required to compare system configurations.
 
-The repository deliberately distinguishes between:
+Depending on the experiment, evaluation can include:
 
-Demonstrated
+* task completion
+* failure frequency
+* recovery performance
+* convergence behavior
+* intervention frequency
+* computational performance
+* coordination efficiency
 
-computational multi-agent coordination
-deterministic experiments
-simulated failure-risk prediction
-workload redistribution
-quantitative evaluation
+---
 
-Not demonstrated
+# Research Hypothesis
 
-physical robotic deployment
-real-world failure prediction
-medical efficacy
-biological performance
-hardware validation
+The primary hypothesis investigated by this project is:
 
-The objective is to provide a reproducible computational
-framework that can later support more sophisticated models and
-hardware experiments.
+> **A supervisory control layer can improve the reliability of a multi-agent computational system by detecting failures and coordinating corrective responses before local failures propagate into larger system-level failures.**
 
-Project Structure
-Supervisory-AI-System/
+The hypothesis should be evaluated experimentally rather than assumed.
+
+---
+
+# Experimental Methodology
+
+Experiments are designed around controlled computational comparisons.
+
+A typical experiment consists of:
+
+1. Initialize the environment.
+2. Initialize the agent population.
+3. Assign tasks or objectives.
+4. Execute the baseline system.
+5. Introduce controlled disturbances or failures.
+6. Execute the supervisory system.
+7. Record system-level metrics.
+8. Repeat across multiple random seeds.
+9. Aggregate results.
+10. Compare the resulting distributions.
+
+This structure allows the supervisory mechanism to be evaluated against a baseline rather than relying on a single successful demonstration.
+
+---
+
+# Baseline Comparison
+
+A research-grade evaluation should compare at least two configurations:
+
+### Baseline
+
+Agents operate without supervisory intervention.
+
+### Supervisory Configuration
+
+Agents operate while a supervisory controller monitors the system and can identify and respond to abnormal conditions.
+
+The comparison allows performance differences to be attributed to the supervisory mechanism rather than simply to the underlying agent system.
+
+---
+
+# Failure Testing
+
+A major focus of the framework is controlled failure injection.
+
+Possible experimental conditions include:
+
+* individual agent failure
+* multiple simultaneous failures
+* degraded agent performance
+* task execution errors
+* communication/state inconsistencies
+* increased system load
+* unexpected environmental conditions
+
+Failure scenarios should be generated using deterministic seeds where reproducibility is required.
+
+---
+
+# Evaluation Metrics
+
+The framework can evaluate multiple dimensions of system performance.
+
+| Metric             | Purpose                                                         |
+| ------------------ | --------------------------------------------------------------- |
+| Task Completion    | Measures whether objectives are successfully completed          |
+| Failure Rate       | Measures frequency of unsuccessful agent operations             |
+| Recovery Time      | Measures how quickly the system returns to acceptable operation |
+| Intervention Count | Measures how frequently supervisory intervention occurs         |
+| Convergence Steps  | Measures time required to reach a stable state                  |
+| Agent Utilization  | Measures effective use of available agents                      |
+| System Throughput  | Measures completed work over time                               |
+| Computational Cost | Measures resource requirements                                  |
+
+No metric should be interpreted independently; improvements in one dimension may introduce costs in another.
+
+---
+
+# Reproducibility
+
+Reproducibility is a core design requirement.
+
+Experiments should record:
+
+* random seed
+* agent population
+* environment configuration
+* failure configuration
+* controller configuration
+* number of simulation steps
+* experimental condition
+* raw measurements
+* aggregated statistics
+
+Where possible, experiments should be repeated across multiple independent seeds rather than relying on a single run.
+
+---
+
+# Statistical Evaluation
+
+When multiple experimental runs are available, results should be reported using aggregate statistics rather than isolated examples.
+
+Recommended reporting includes:
+
+* mean
+* standard deviation
+* confidence intervals where appropriate
+* effect size
+* sample count
+* statistical significance testing when justified by the experimental design
+
+A statistically significant result should not automatically be interpreted as practically significant; both effect magnitude and system cost should be considered.
+
+---
+
+# Repository Structure
+
+```text
+.
+├── README.md
+├── LICENSE
+├── requirements.txt
+├── main.py
 │
-├── src/
-│   ├── agents/
-│   ├── environment/
-│   ├── supervisor/
-│   ├── prediction/
-│   ├── allocation/
-│   ├── metrics/
-│   └── experiments/
-│
-├── experiments/
-├── results/
-│   ├── raw/
-│   ├── processed/
-│   └── figures/
-│
-├── tests/
 ├── docs/
-│   ├── methodology.md
 │   ├── experiments.md
+│   ├── methodology.md
 │   └── system_design.md
 │
-├── main.py
-├── requirements.txt
-└── README.md
-Research Direction
+├── experiments/
+│   ├── run_experiments.py
+│   ├── baseline/
+│   ├── failure_test/
+│   ├── high_load/
+│   └── priority_stress/
+│
+├── src/
+│   ├── environment/
+│   ├── agents/
+│   ├── supervision/
+│   ├── coordination/
+│   └── metrics/
+│
+├── results/
+│   ├── figures/
+│   └── logs/
+│
+├── scripts/
+│
+└── tests/
+```
 
-Future work can extend the framework with:
+The exact directory structure may evolve as the research implementation develops.
 
-learned failure predictors
-partially observable environments
-decentralized communication
-reinforcement learning
-heterogeneous agents
-stochastic failures
-communication delays
-larger-scale swarm experiments
-statistical significance testing
-hardware-in-the-loop validation
+---
+
+# Installation
+
+Clone the repository and install the required Python dependencies.
+
+```bash
+git clone https://github.com/mmu3840-Zenith/Supervisory-AI-System.git
+cd Supervisory-AI-System
+pip install -r requirements.txt
+```
+
+---
+
+# Running the System
+
+Run the primary computational system with:
+
+```bash
+python main.py
+```
+
+Run the experimental evaluation with:
+
+```bash
+python experiments/run_experiments.py
+```
+
+Run the automated test suite with:
+
+```bash
+python -m pytest
+```
+
+---
+
+# Research Integrity
+
+This project deliberately distinguishes between **computational evidence** and **real-world claims**.
+
+Successful simulation results demonstrate that a proposed mechanism performs under the tested computational conditions.
+
+They do not, by themselves, establish:
+
+* physical robot performance
+* biological effectiveness
+* real-world safety
+* deployment readiness
+* general intelligence
+* guaranteed reliability outside the tested environment
+
+The purpose of this repository is to provide an experimentally testable computational framework rather than to imply capabilities that have not been demonstrated.
+
+---
+
+# Limitations
+
+The current framework has several important limitations.
+
+### Simplified Environment
+
+The environment is an abstraction and does not reproduce the full complexity of physical environments.
+
+### Simulated Agents
+
+Agents are computational representations rather than physical autonomous robots.
+
+### Limited Failure Models
+
+The implemented failure scenarios represent only a subset of failures possible in real distributed systems.
+
+### Model Dependence
+
+Observed performance depends on the assumptions, controller design, environment configuration, and evaluation methodology.
+
+### Simulation-to-Reality Gap
+
+Performance in simulation does not guarantee equivalent performance in physical deployment.
+
+These limitations define clear directions for future research.
+
+---
+
+# Future Work
+
+Potential extensions include:
+
+* larger agent populations
+* hierarchical supervisory architectures
+* adaptive intervention thresholds
+* learned anomaly detection
+* multi-level fault diagnosis
+* communication-aware coordination
+* adversarial failure scenarios
+* uncertainty-aware supervision
+* computational scaling experiments
+* comparisons between rule-based and learned supervisors
+* formal verification of selected supervisory policies
+* hardware-in-the-loop evaluation
+
+---
+
+# Research Contribution
+
+The primary contribution of this project is a computational framework for investigating **supervisory intelligence in multi-agent systems**.
+
+Rather than focusing solely on improving individual agent policies, the project investigates an additional level of intelligence responsible for observing, evaluating, and coordinating the behavior of the collective system.
+
+This provides a foundation for studying questions surrounding:
+
+**autonomy → coordination → supervision → recovery**
+
+within controlled and reproducible computational experiments.
+
+---
+
+# Citation
+
+If this repository contributes to your research or project, please cite the associated publication or repository version.
+
+```text
+Mukhtar, M. (2026).
+Supervisory AI System:
+A Computational Framework for Multi-Agent Monitoring,
+Decision Oversight, and Fault Recovery.
+GitHub.
+```
+
+---
+
+# License
+
+See `LICENSE` for the terms governing use and distribution of this repository.
